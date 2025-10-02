@@ -95,11 +95,14 @@ def fetch_weather():
     conn.close()
     # print("All cities processed successfully!")
 
+now = datetime.now()
+minute_aligned = now.minute - (now.minute % 3)  # nearest past multiple of 
+start_date_aligned = now.replace(minute=minute_aligned, second=0, microsecond=0)
 
 dag = DAG(
     'weather_pipeline',
-    # start_date=days_ago(1),
-    start_date=datetime.now() - timedelta(minutes=1),
+    # start_date=datetime.now() - timedelta(minutes=1),
+    start_date=start_date_aligned,
     # schedule_interval='@hourly'
     schedule_interval='*/3 * * * *',
     catchup=False,
