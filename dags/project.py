@@ -97,9 +97,9 @@ def fetch_weather():
 
 dag = DAG(
     'weather_pipeline',
-    start_date=datetime.now(),
+    start_date=days_ago(1),
     # schedule_interval='@hourly'
-    schedule_interval='*/3 * * * *',
+    schedule_interval='*/1 * * * *',
     catchup=False
 )
 
