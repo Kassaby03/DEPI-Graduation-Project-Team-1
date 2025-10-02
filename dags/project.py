@@ -7,6 +7,7 @@ import json
 import requests
 import pyodbc
 from datetime import datetime
+from airflow.utils.dates import days_ago
 import os
 
 def fetch_weather():
@@ -99,7 +100,7 @@ dag = DAG(
     'weather_pipeline',
     start_date=days_ago(1),
     # schedule_interval='@hourly'
-    schedule_interval='*/1 * * * *',
+    schedule_interval='*/3 * * * *',
     catchup=False
 )
 
