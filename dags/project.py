@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 import json
 import requests
 import pyodbc
-from datetime import datetime
+from datetime import datetime, timedelta
 from airflow.utils.dates import days_ago
 import os
 
@@ -98,10 +98,12 @@ def fetch_weather():
 
 dag = DAG(
     'weather_pipeline',
-    start_date=days_ago(1),
+    # start_date=days_ago(1),
+    start_date=datetime.now() - timedelta(minutes=1),
     # schedule_interval='@hourly'
     schedule_interval='*/3 * * * *',
-    catchup=False
+    catchup=False,
+    max_active_runs=1
 )
 
 task1 = PythonOperator(
