@@ -98,7 +98,7 @@ def fetch_weather():
 
 dag = DAG(
     'weather_pipeline',
-    start_date=datetime.now() - timedelta(minutes=1),
+    start_date=days_ago(1),
     # schedule_interval='@hourly'
     schedule_interval='*/3 * * * *',
     catchup=False,
@@ -110,5 +110,6 @@ task1 = PythonOperator(
     python_callable=fetch_weather,
     dag=dag
 )
+
 
 
