@@ -132,11 +132,6 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
-    # environment: # -----------
-    #   <<: *airflow-common-env
-    #   AIRFLOW__SCHEDULER__CATCHUP_BY_DEFAULT: 'false'
-    #   AIRFLOW__SCHEDULER__ALLOW_TRIGGER_IN_PAST: 'false'
-
   airflow-scheduler:
     <<: *airflow-common
     command: scheduler
@@ -151,10 +146,6 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-    # environment: # -----------
-    #   <<: *airflow-common-env
-    #   AIRFLOW__SCHEDULER__CATCHUP_BY_DEFAULT: 'false'
-    #   AIRFLOW__SCHEDULER__ALLOW_TRIGGER_IN_PAST: 'false'
 
   airflow-worker:
     <<: *airflow-common
@@ -178,7 +169,6 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
 
   airflow-triggerer:
     <<: *airflow-common
