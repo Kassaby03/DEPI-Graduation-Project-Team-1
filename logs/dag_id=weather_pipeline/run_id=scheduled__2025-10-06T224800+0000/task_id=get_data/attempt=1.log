@@ -1,0 +1,28 @@
+[2025-10-06T22:51:05.930+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-10-06T22:51:05.979+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: weather_pipeline.get_data scheduled__2025-10-06T22:48:00+00:00 [queued]>
+[2025-10-06T22:51:06.005+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: weather_pipeline.get_data scheduled__2025-10-06T22:48:00+00:00 [queued]>
+[2025-10-06T22:51:06.007+0000] {taskinstance.py:2865} INFO - Starting attempt 1 of 1
+[2025-10-06T22:51:06.048+0000] {taskinstance.py:2888} INFO - Executing <Task(PythonOperator): get_data> on 2025-10-06 22:48:00+00:00
+[2025-10-06T22:51:06.065+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=1903) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-10-06T22:51:06.069+0000] {standard_task_runner.py:72} INFO - Started process 1912 to run task
+[2025-10-06T22:51:06.070+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'weather_pipeline', 'get_data', 'scheduled__2025-10-06T22:48:00+00:00', '--job-id', '141', '--raw', '--subdir', 'DAGS_FOLDER/Weather.py', '--cfg-path', '/tmp/tmpxquikr6s']
+[2025-10-06T22:51:06.073+0000] {standard_task_runner.py:105} INFO - Job 141: Subtask get_data
+[2025-10-06T22:51:06.274+0000] {task_command.py:467} INFO - Running <TaskInstance: weather_pipeline.get_data scheduled__2025-10-06T22:48:00+00:00 [running]> on host afef8cd523eb
+[2025-10-06T22:51:06.607+0000] {taskinstance.py:3131} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='weather_pipeline' AIRFLOW_CTX_TASK_ID='get_data' AIRFLOW_CTX_EXECUTION_DATE='2025-10-06T22:48:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-10-06T22:48:00+00:00'
+[2025-10-06T22:51:06.612+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-10-06T22:51:06.613+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-10-06T22:51:06.615+0000] {logging_mixin.py:190} INFO - Current task name:get_data state:running start_date:2025-10-06 22:51:05.980934+00:00
+[2025-10-06T22:51:06.617+0000] {logging_mixin.py:190} INFO - Dag name:weather_pipeline and current dag run status:running
+[2025-10-06T22:51:06.619+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-10-06T22:51:24.821+0000] {python.py:240} INFO - Done. Returned value was: None
+[2025-10-06T22:51:24.870+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-10-06T22:51:24.873+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=weather_pipeline, task_id=get_data, run_id=scheduled__2025-10-06T22:48:00+00:00, execution_date=20251006T224800, start_date=20251006T225105, end_date=20251006T225124
+[2025-10-06T22:51:24.927+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-10-06T22:51:24.929+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-10-06T22:51:24.931+0000] {logging_mixin.py:190} INFO - Dag name:weather_pipeline queued_at:2025-10-06 22:51:00.505488+00:00
+[2025-10-06T22:51:24.933+0000] {logging_mixin.py:190} INFO - Task hostname:afef8cd523eb operator:PythonOperator
+[2025-10-06T22:51:24.971+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-10-06T22:51:25.030+0000] {taskinstance.py:3900} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-10-06T22:51:25.047+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
