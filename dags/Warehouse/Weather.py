@@ -254,7 +254,7 @@ default_args = {
 dag = DAG(
     "weather_pipeline",
     description="Weather ETL using OpenWeatherMap & VisualCrossing APIs",
-    schedule_interval="0 */3 * * *",
+    schedule_interval="*/3 * * * *",
     default_args=default_args,
     catchup=False,
 )
