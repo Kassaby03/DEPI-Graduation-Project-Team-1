@@ -91,3 +91,6 @@ ADD model_id INT;
 ALTER TABLE FactWeatherObservation
 ADD CONSTRAINT FK_FactWeatherObservation_Model
 FOREIGN KEY (model_id) REFERENCES DimForecastModel(model_id);
+
+delete from FactWeatherObservation
+where time_id is null
