@@ -13,7 +13,7 @@ def connect_to_db(db_name):
         "DRIVER={ODBC Driver 18 for SQL Server};"
         "SERVER=host.docker.internal,1433;"
         f"DATABASE={db_name};"
-        "UID=pro;"
+        "UID=docker_user;"
         "PWD=9512;"
         "TrustServerCertificate=yes;"
     )
@@ -25,7 +25,7 @@ def connect_to_db(db_name):
 # =============== 🔹 EXTRACT ===============
 
 def extract_from_operational():
-    conn, cursor = connect_to_db("WeatherDataDB")
+    conn, cursor = connect_to_db("WeatherDB")
 
     cursor.execute("""
         SELECT 
@@ -45,7 +45,7 @@ def extract_from_operational():
     conn.close()
 
     data = [dict(zip(columns, row)) for row in rows]
-    print(f"✅ Extracted {len(data)} records from WeatherDataDB")
+    print(f"✅ Extracted {len(data)} records from WeatherDB")
     return data
 
 
@@ -57,7 +57,7 @@ def load_to_warehouse():
         print("⚠️ No data found to load.")
         return
 
-    conn_wh, cur_wh = connect_to_db("project")
+    conn_wh, cur_wh = connect_to_db("WeatherDW")
 
     for record in operational_data:
         # === DimLocation ===
@@ -73,7 +73,7 @@ def load_to_warehouse():
         conn_wh.commit()
 
         cur_wh.execute("SELECT location_id FROM DimLocation WHERE city = ? AND country = ?",
-                       (record["City"], record["Country"]))
+                        (record["City"], record["Country"]))
         location_id = cur_wh.fetchone()[0]
 
         # === DimWeatherEvent ===
@@ -109,7 +109,7 @@ def load_to_warehouse():
         conn_wh.commit()
 
         cur_wh.execute("SELECT time_id FROM DimTime WHERE time_date = ? AND time_value = ?",
-                       (obs_date, obs_time))
+                        (obs_date, obs_time))
         time_id = cur_wh.fetchone()[0]
 
         # === DimForecastModel ===
@@ -171,7 +171,7 @@ dag = DAG(
     schedule_interval="0 * * * *",  # كل ساعة
     catchup=False,
     max_active_runs=1,
-    description="ETL pipeline to load data from WeatherDataDB to WeatherWarehouseDB",
+    description="ETL pipeline to load data from WeatherDB to WeatherDW",
 )
 
 task_load = PythonOperator(

@@ -13,8 +13,8 @@ def connection():
     conn_str = (
         "DRIVER={ODBC Driver 18 for SQL Server};"
         "SERVER=host.docker.internal,1433;"
-        "DATABASE=WeatherDataDB;"
-        "UID=pro;"
+        "DATABASE=WeatherDB;"
+        "UID=docker_user;"
         "PWD=9512;"
         "TrustServerCertificate=yes;"
     )
@@ -238,7 +238,7 @@ def get_data():
 
 
 dag = DAG(
-    "weather_pipelinee",
+    "weather_pipeline",
     start_date=days_ago(1),
     schedule_interval="*/3 * * * *",  # كل 3 دقائق
     catchup=False,
