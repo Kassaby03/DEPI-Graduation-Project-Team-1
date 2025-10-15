@@ -139,8 +139,8 @@ def load_to_warehouse():
         cur_wh.execute("""
             INSERT INTO FactWeatherObservation
                 (time_id, location_id, event_id, model_id,
-                 temperature, humidity, wind_speed, wind_direction,
-                 pressure, precipitation, visibility, cloud_coverage)
+                temperature, humidity, wind_speed, wind_direction,
+                pressure, precipitation, visibility, cloud_coverage)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0.0, ?, ?);
         """, (
             time_id, location_id, event_id, model_id_final,

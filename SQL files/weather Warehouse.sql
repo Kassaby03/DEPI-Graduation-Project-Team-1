@@ -94,3 +94,11 @@ FOREIGN KEY (model_id) REFERENCES DimForecastModel(model_id);
 
 delete from FactWeatherObservation
 where time_id is null
+
+
+BACKUP DATABASE WeatherDataDB
+TO DISK = 'D:\GP DEPI\project.bak'
+WITH FORMAT,
+    NAME = 'Full Backup of WeatherDataDW',
+    SKIP,
+    STATS = 10;
