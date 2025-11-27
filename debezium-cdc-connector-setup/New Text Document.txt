@@ -1,0 +1,29 @@
+streamlit run streamlit.py                             يشغل ال steamlit
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+docker compose -f docker-compose1.yaml up -d  ------------------        تشغل ال container بتاع كافكا
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+curl -X POST http://localhost:8083/connectors \
+  -H "Content-Type: application/json" \
+  --data-binary @register-sqlserver.json                        بيقوموا ال connector بتاع كافكا لل SQL Server
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+لازم تشتغل على SQL server authentication وتفعل ال CDC agent ع ال Tables
+
+USE master;
+ALTER SERVER ROLE sysadmin ADD MEMBER pro; اول سطرين دول عشان تظبط ال Role لل user بتاعك
+
+EXEC sys.sp_cdc_enable_db;
+
+-- ???? CDC ??? ?? ???? ?? schema ???? (????: dbo)
+DECLARE @sql NVARCHAR(MAX) = N'';
+SELECT @sql = @sql + 'EXEC sys.sp_cdc_enable_table @source_schema = ''' + s.name + ''', @source_name = ''' + t.name + ''', @role_name = NULL; '
+FROM sys.tables t
+JOIN sys.schemas s ON t.schema_id = s.schema_id
+WHERE s.name = 'dbo';
+
+EXEC sp_executesql @sql;    
+         
+دا كود التفعيل
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+select * from cdc.change_tables;
+ودا تتأكد انهم موجودين واتفعلهم ال CDC
